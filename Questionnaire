@@ -1,1 +1,44 @@
-#Questionaire here
+#Interview guide
+
+User Role and Access
+1.	Who are the primary users of the student monitoring system?
+    -	School, teachers, barangay
+2.	What is the primary purpose of the student monitoring system?
+    -	To track the daily attendance learners
+    -	Monitor the absences of learner and identify learners with high absenteeism rate
+
+3.	Is there a different user role, and what specific access level should each role have?
+    -	May serve as feedback mechanism as to the app.
+4.	Do students have their own access to the student monitoring system?
+    -	no
+5.	Is there user role with read-only access?
+    -	yes
+6.	What communication channels should be available to different user roles?
+    -	Social Media
+7.	Can you provide an overview of how the student monitoring system was implemented in your school?
+    -	The system will shared different entities that are considered as primary user. All data should pass by the office the principal.
+8. Does the student monitoring system integrate with school systems or platforms, such as the learning management system?
+    -	Yes such SF 2 of individual teachers.
+
+Functionalities
+1.	What specific features and functionalities do you expect from the student monitoring system?
+    -	Online application, Centralized Data gathering, real time monitoring, printable reports, user-friendly
+2.	What types of information and data would you like to monitor for each student?
+    -	Daily Attendance and Percentage of Absences and Present daily
+3.	How do you envision the user interface? Are there any design preferences or specific layouts you have in mind?
+    -	No
+4.	What security measures would you like to protect student data?
+    -	Password should generated
+5. Are there specific features that provide instant feedback to teachers, students, and parents?
+    -	yes
+6.	What specific information should the system capture about each student?
+    -	Time of their arrival and departure
+7.	What kind of features can integrate the system?
+    -	Data maybe stored in Cloud
+8.	Are there emerging technologies or trends that could be integrated into the system for improved functionality?
+    -	I am not certain
+9.	Does the student monitoring system seamlessly integrate with the school's learning management system?
+    -	yes
+10.	How does the system track and monitor the students in school?
+    -	By using QR codes
+
