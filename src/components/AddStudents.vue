@@ -11,9 +11,9 @@ const emits = defineEmits('close')
             <div class="add">
                 <div class="title">
                     <h1>Add Students</h1>
-                    <a href="#" @click.prevent="Add()">x</a>
+                    <a href="#" @click.prevent="emits('close')">x</a>
                 </div><hr>
-                <div class="form">
+                <form class="form">
                     <div class="input-wrap">
                         <div>
                             <label for="">firstame</label><br>
@@ -24,7 +24,7 @@ const emits = defineEmits('close')
                             <input type="text" name="" id="">
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </transition>

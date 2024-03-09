@@ -12,6 +12,7 @@ const isStudent = ref(false)
 const isAttendance = ref(false)
 const isTeacher = ref(false)
 const isGradeLevel = ref(false)
+const tagId = ref('')
 
 function toggleDash() {
     if(!isDash.value){
@@ -22,6 +23,7 @@ function toggleDash() {
         isGradeLevel.value = false
     }
 }
+tagId.value = 'actv'
 
 function toggleStudent() {
     if(!isStudent.value){
@@ -69,29 +71,29 @@ function toggleGrd() {
                 <h1>Admin</h1>
             </div>
             <div class="buttons">
-                <a href="#" @click.prevent="toggleDash">
-                    <i><b>icon</b></i>
+                <a href="#" :id="tagId" @click.prevent="toggleDash">
+                    <i class="fa-brands fa-microsoft"></i>
                     <p><b>Dashboard</b></p>
                 </a>
-                <a href="#" @click.prevent="toggleStudent">
-                    <i><b>icon</b></i>
+                <a href="#"  id="stdnt" @click.prevent="toggleStudent">
+                    <i class="fa-solid fa-users"></i>
                     <p><b>Students</b></p>
                 </a>
-                <a href="#"  @click.prevent="toggleAttend">
-                    <i><b>icon</b></i>
+                <a href="#"  id="attnd" @click.prevent="toggleAttend">
+                    <i class="fa-solid fa-clipboard-user"></i>
                     <p><b>Attendance</b></p>
                 </a>
                 <a href="#" @click.prevent="toggleAdvsr">
-                    <i><b>icon</b></i>
+                    <i class="fa-solid fa-chalkboard-user"></i>
                     <p><b>Advisers</b></p>
                 </a>
                 <a href="#" @click.prevent="toggleGrd">
-                    <i><b>icon</b></i>
+                    <i class="fa-solid fa-chart-simple"></i>
                     <p><b>Grade Level</b></p>
                 </a>
             </div><br><br><br><hr>
             <div class="btn-bot">
-                <i>icon</i>
+                <i class="fa-solid fa-gear"></i>
                 <a href="#">Setting</a>
             </div>
 
@@ -112,6 +114,10 @@ function toggleGrd() {
     </div>
 </template>
 <style>
+#actv{
+    background: #d8dbdf;
+}
+
 .container{
     background:  #d8dbdf;
     display: flex;
@@ -128,7 +134,7 @@ function toggleGrd() {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding: 0 0 20px 0;
+    padding: 0 0 30px 0;
     border-bottom: 1px solid rgb(212, 204, 204);
 }
 
@@ -140,7 +146,7 @@ function toggleGrd() {
 .sidebar h1{
     color: black;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .buttons{
@@ -152,9 +158,9 @@ function toggleGrd() {
 .buttons a{
     text-decoration: none;
     color: black;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 600;
-    padding: 10px 50px;
+    padding: 15px 70px;
     display: flex;
     gap: 10px;
 }
@@ -163,7 +169,8 @@ function toggleGrd() {
     padding: 20px;
     display: flex;
     gap: 10px;
-    padding: 20px 50px;
+    padding: 20px 70px;
+    font-size: 18px;
 }
 
 .btn-bot a{

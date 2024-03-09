@@ -5,25 +5,35 @@
     <h1>Welcome Admin!</h1>
     <div class="dashboard">
         <div class="students">
-            <div>
-                <h4>Students</h4>
-                <p>1,300</p>
+            <div class="dash-con">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <div>
+                    <p>Total Students</p>
+                    <h4>1,300</h4>
+                </div>
             </div>
-            <i>icon</i>
+            <div class="attnd">
+                <p>Total absent: <b>10</b></p>
+                <p>Present: <b>1290</b></p>
+            </div>
         </div>
         <div class="advisers">
-            <div>
-                <h4>Advisers</h4>
-                <p>50</p>
+            <div class="dash-con">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <div>
+                    <p>Total Advisers</p>
+                    <h4>50</h4>
+                </div>
             </div>
-            <i>icon</i>
         </div>
         <div class="barangay">
-            <div>
-                <h4>Barangay</h4>
-                <p>12</p>
+            <div class="dash-con">
+                <i class="fa-solid fa-landmark"></i>
+                <div>
+                    <p>Total Barangay</p>
+                    <h4>12</h4>
+                </div>
             </div>
-            <i>icon</i>
         </div>
     </div>
     <div class="chart">
@@ -31,6 +41,7 @@
     </div>
 </template>
 <style>
+
 h1{
     color: black;
     font-size: 20px;
@@ -44,33 +55,46 @@ h1{
 }
 
 .students, .advisers, .barangay{
-    display: flex;
-    gap: 50px;
-    align-items: center;
-    padding: 10px;
+    padding: 20px;
     color: white;
     border-radius: 3px;
+    display: grid;
+    gap: 10px;
+    width: 20%;
+    align-content: start;
 }
 .students{
-    background:  #126cc0;
+    background:  #9186f5;
 }
 
 .advisers{
-    background:  #a6c731;
+    background:  #3183c7;
 }
 
 .barangay{
-    background:  red;
+    background:  #3ca5ce;
 }
 
-.students div, .advisers div, .barangay div{
-    display: grid;
+.dash-con{
+    display: flex;
+    align-items: center;
     gap: 10px;
+}
+
+.dash-con i{
+    padding: 10px 10px;
+    background: #00000062;
+    font-size: 25px;
+    border-radius: 3px;
+}
+
+.dashboard p{
+    font-size: 15px;
 }
 
 .chart{
     margin-top: 10px;
-    height: 57vh;
+    height: 60vh;
     background: white;
 }
 </style>

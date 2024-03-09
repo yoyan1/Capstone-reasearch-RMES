@@ -3,6 +3,7 @@
     <form action="/dashboard">
       <img src="" alt="">
       <h1>LOG IN</h1>
+      <p>Incorrect Email or Password</p>
       <input type="text" placeholder="Email: ex (ramon@gmail.com)">
       <div class="wrap">
         <input type="password" placeholder="Password"><br>

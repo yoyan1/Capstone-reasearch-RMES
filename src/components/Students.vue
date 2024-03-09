@@ -9,7 +9,7 @@ function Add() {
 }
 </script>
 <template>
-    <AddStudents v-if="isAdd"/>
+    <AddStudents v-if="isAdd" @close="Add"/>
     <h1>students</h1>
     <div class="studentList">
         <table>
@@ -43,6 +43,36 @@ function Add() {
                 <td>Guadalupe</td>
                 <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
             </tr>
+            <tr class="body">
+                <td>1BS9237</td>
+                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
+                <td>John doe</td>
+                <td>13</td>
+                <td>Male</td>
+                <td>GRADE III</td>
+                <td>Guadalupe</td>
+                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
+            </tr>
+            <tr class="body">
+                <td>1BS9237</td>
+                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
+                <td>John doe</td>
+                <td>13</td>
+                <td>Male</td>
+                <td>GRADE III</td>
+                <td>Guadalupe</td>
+                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
+            </tr>
+            <tr class="body">
+                <td>1BS9237</td>
+                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
+                <td>John doe</td>
+                <td>13</td>
+                <td>Male</td>
+                <td>GRADE III</td>
+                <td>Guadalupe</td>
+                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
+            </tr>
         </table>
     </div>
 </template>
@@ -54,9 +84,11 @@ function Add() {
     box-shadow: 0px 3px 5px gray;
     border-radius: 3px;
 }
+
+
 table tr th, tr td{
-    width: 100px;
-    font-size: 12px;
+    width: 150px;
+    font-size: 15px;
     text-align: center;
 }
 
@@ -64,6 +96,9 @@ table tr th{
     padding: 10px 0;
 }
 
+table tr td{
+    padding: 10px 0;
+}
 table .body{
     background: #cfd0d1;
 }
@@ -76,6 +111,7 @@ table .body{
     color: white;
     text-decoration: none;
     font-weight: 100;
+    font-size: 15px;
 }
 
 .print{
@@ -85,5 +121,6 @@ table .body{
     color: white;
     text-decoration: none;
     font-weight: 100;
+    font-size: 15px;
 }
 </style>

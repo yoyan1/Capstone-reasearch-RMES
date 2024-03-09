@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+
 </script>
 <template>
   <div class="container">
@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router';
           <h1>WELCOME</h1>
           <div class="btn">
             <a href="/admin" class="a1">Admin</a>
-            <a href="" class="a2">Lorem ipsum</a>
+            <a href="/admn" class="a2">Lorem ipsum</a>
           </div>
         </div>
         <div class="contact">
