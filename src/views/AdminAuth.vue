@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form action="/dashboard">
+    <form action="/dashboard/home">
       <img src="" alt="">
       <h1>LOG IN</h1>
       <p>Incorrect Email or Password</p>

@@ -1,126 +1,172 @@
 <script setup>
-import AddStudents from './AddStudents.vue';
-import {ref} from 'vue';
+import {ref, computed} from 'vue'
 
-const isAdd = ref(false)
+const students = ref([
+    {
+        id: '632272',
+        profile: './images/helloCutie.jpg',
+        name: 'Roland Clarion',
+        gradeLvl: 'Grade III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1'
+    },
+    {
+        id: '7323772',
+        profile: './images/helloCutie.jpg',
+        name: 'Rosmarie Panilagao',
+        gradeLvl: 'Grade III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1'
+    },
+    {
+        id: '32674237',
+        profile: './images/helloCutie.jpg',
+        name: 'Christian Mark Nepa',
+        gradeLvl: 'Grade III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1'
+    }
+])
 
-function Add() {
-    isAdd.value = !isAdd.value
-}
+const searchInput = ref('')
+
+// Define a computed property to filter students based on search query
+const filteredStudents = computed(() => {
+  const search = searchInput.value.toLowerCase()
+  return students.value.filter(student =>
+    student.name.toLowerCase().includes(search) || student.id.includes(search)
+  )
+})
 </script>
 <template>
-    <AddStudents v-if="isAdd" @close="Add"/>
-    <h1>students</h1>
-    <div class="studentList">
-        <table>
-            <tr>
-                <th>ALL STUDENTS</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th><a href="#" @click.prevent="Add" :Add="Add" class="Add">Add Students</a></th>
-                <th><a href="#" class="print">Print</a></th>
-            </tr>
-            <tr>
-                <th>ID</th>
-                <th></th>
-                <th>NAME</th>
-                <th>AGE</th>
-                <th>GENDER</th>
-                <th>GRADE LEVEL</th>
-                <th>BARANGAY</th>
-                <th>ACTION</th>
-            </tr>
-            <tr class="body">
-                <td>1BS9237</td>
-                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
-                <td>John doe</td>
-                <td>13</td>
-                <td>Male</td>
-                <td>GRADE III</td>
-                <td>Guadalupe</td>
-                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
-            </tr>
-            <tr class="body">
-                <td>1BS9237</td>
-                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
-                <td>John doe</td>
-                <td>13</td>
-                <td>Male</td>
-                <td>GRADE III</td>
-                <td>Guadalupe</td>
-                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
-            </tr>
-            <tr class="body">
-                <td>1BS9237</td>
-                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
-                <td>John doe</td>
-                <td>13</td>
-                <td>Male</td>
-                <td>GRADE III</td>
-                <td>Guadalupe</td>
-                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
-            </tr>
-            <tr class="body">
-                <td>1BS9237</td>
-                <td><img src="../components/images/HelloCUtie.jpg" width="30px" alt=""></td>
-                <td>John doe</td>
-                <td>13</td>
-                <td>Male</td>
-                <td>GRADE III</td>
-                <td>Guadalupe</td>
-                <td><a href="">EDIT</a>  <a href="">DELETE</a></td>
-            </tr>
-        </table>
+    <div class="container">
+        <div class="students-list">
+            <div class="top">
+                <h4>Students</h4>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" v-model="searchInput" placeholder="Enter ID or Name">
+                </div>
+            </div>
+                <div class="list">
+                    <div class="label">
+                        <div width="100px">id</div>
+                        <div width="50px">Profile</div>
+                        <div  width="200px">Name</div>
+                        <div width="100px">LRN</div>
+                        <div  width="100px">Barangay</div>
+                        <div  width="50px">Zone</div>
+                    </div>
+                    <div class="students" v-for="student in filteredStudents">
+                        <div width="100px">{{ student.id }}</div>
+                        <div width="50px"><img src="./images/helloCutie.jpg" width="40px" alt=""></div>
+                        <div width="200px" style="text-align: left"><h4>{{ student.name }}</h4><p>{{ student.gradeLvl }}</p></div>
+                        <div width="100px">{{ student.lrn }}</div>
+                        <div width="100px">{{ student.barangay }}</div>
+                        <div width="50px">{{ student.zone }}</div>
+                    </div>
+                </div>
+        </div>
+        <div class="side">
+            <div class="person-info">
+
+            </div>
+            <div class="logs">
+
+            </div>
+        </div>
     </div>
 </template>
-<style>
-.studentList{
-    background: white;
-    padding: 20px;
-    height: 60vh;
-    box-shadow: 0px 3px 5px gray;
-    border-radius: 3px;
+<style scoped>
+.container{
+    display: flex;
+    gap: 20px;
 }
 
+.students-list{
+    width: 60%;
+    height: 81vh;
+    background: white;
+    border-radius: 3px;
+    box-shadow:  0 5px 5px #80808080;
+}
 
-table tr th, tr td{
-    width: 150px;
-    font-size: 15px;
+.side{
+    display: grid;
+    gap: 20px;
+    width: 40%;
+}
+
+.person-info{
+    background: white;
+    height: 50vh;
+    border-radius: 3px;
+    box-shadow:  0 5px 5px #80808080;
+}
+
+.logs{
+    background: white;
+    height: 26vh;
+    border-radius: 3px;
+    box-shadow:  0 5px 5px #80808080;
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-bottom: 1px solid #8f8e8e;
+}
+
+.search{
+    padding: 0 5px;
+    border: 1px solid gray;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search input{
+    border: none;
+    padding: 5px 0;
+}
+
+.search input:focus{
+    outline: 0;
+    border: 0;
+}
+table{
     text-align: center;
 }
 
-table tr th{
-    padding: 10px 0;
+table tr{
+    border-bottom:1px solid gray;
 }
 
 table tr td{
-    padding: 10px 0;
-}
-table .body{
-    background: #cfd0d1;
+    text-align: center;
+    padding: 10px 5px;
 }
 
-
-.Add{
-    padding: 5px 10px;
+table tr td:hover{
     background: #126cc0;
-    border-radius: 2px;
     color: white;
-    text-decoration: none;
-    font-weight: 100;
-    font-size: 15px;
 }
 
-.print{
-    background: #06a006;
-    padding: 5px 10px;
-    border-radius: 3px;
-    color: white;
-    text-decoration: none;
-    font-weight: 100;
-    font-size: 15px;
+.list .label{
+    display: flex;
+    justify-content: space-around;
+}
+.list .students{
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+
 }
 </style>

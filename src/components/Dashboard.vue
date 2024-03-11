@@ -36,11 +36,11 @@
             </div>
         </div>
     </div>
-    <div class="chart">
+    <!-- <div class="chart">
 
-    </div>
+    </div> -->
 </template>
-<style>
+<style scoped>
 
 h1{
     color: black;

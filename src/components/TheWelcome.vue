@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .container{
   background: #126cc0;
 }

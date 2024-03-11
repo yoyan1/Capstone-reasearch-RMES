@@ -1,204 +1,198 @@
 <script setup>
-import {ref} from 'vue'
-import Dashboard from '@/components/Dashboard.vue';
-import Students from '@/components/Students.vue'
-import Attendance from '@/components/Attendance.vue'
-import Advisers from '@/components/Advisers.vue'
-import GradeLevel from '@/components/GradeLevel.vue'
+import {RouterLink, RouterView } from 'vue-router'
 
-const indexs = ref(0)
-const isDash = ref(true)
-const isStudent = ref(false)
-const isAttendance = ref(false)
-const isTeacher = ref(false)
-const isGradeLevel = ref(false)
-const tagId = ref('')
-
-function toggleDash() {
-    if(!isDash.value){
-        isDash.value = true
-        isStudent.value =false
-        isAttendance.value = false
-        isTeacher.value = false
-        isGradeLevel.value = false
-    }
-}
-tagId.value = 'actv'
-
-function toggleStudent() {
-    if(!isStudent.value){
-        isDash.value = false
-        isStudent.value = true
-        isAttendance.value = false
-        isTeacher.value = false
-        isGradeLevel.value = false
-    }
-}
-function toggleAttend() {
-    if (!isAttendance.value) {
-        isDash.value = false
-        isStudent.value =false
-        isAttendance.value = true
-        isTeacher.value = false
-        isGradeLevel.value = false
-    }
-}
-function toggleAdvsr() {
-    if (!isTeacher.value) {
-        isDash.value = false
-        isStudent.value =false
-        isAttendance.value = false
-        isTeacher.value = true
-        isGradeLevel.value = false
-    }
-}
-function toggleGrd() {
-    if (!isGradeLevel.value) {
-        isDash.value = false
-        isStudent.value =false
-        isAttendance.value = false
-        isTeacher.value = false
-        isGradeLevel.value = true
-    }
-}
+const buttons = [
+    {
+        name: 'Dashboard',
+        link: 'home',
+        icon: 'fa-brands fa-microsoft'
+    },
+    {
+        name: 'Students Information',
+        link: 'students',
+        icon: 'fa-solid fa-user-graduate'
+    },
+    {
+        name: 'Teachers Information',
+        link: '',
+        icon: 'fa-solid fa-chalkboard-user'
+    },
+    {
+        name: 'Dashboard',
+        link: '',
+        icon: 'fa-brands fa-microsoft'
+    },
+]
 </script>
-
 <template>
-    <div class="container">
-        <div class="sidebar">
-            <div class="profile">
-                <img src="../components/images/helloCutie.jpg" width="70px" alt="">
-                <h1>Admin</h1>
+    <div class="dash-wrap">
+        <div class="head">
+            <div class="title">
+                <img src="../components/images/helloCutie.jpg" width="40px" alt="">
+                <h2>RMES</h2>
             </div>
-            <div class="buttons">
-                <a href="#" :id="tagId" @click.prevent="toggleDash">
-                    <i class="fa-brands fa-microsoft"></i>
-                    <p><b>Dashboard</b></p>
-                </a>
-                <a href="#"  id="stdnt" @click.prevent="toggleStudent">
-                    <i class="fa-solid fa-users"></i>
-                    <p><b>Students</b></p>
-                </a>
-                <a href="#"  id="attnd" @click.prevent="toggleAttend">
-                    <i class="fa-solid fa-clipboard-user"></i>
-                    <p><b>Attendance</b></p>
-                </a>
-                <a href="#" @click.prevent="toggleAdvsr">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <p><b>Advisers</b></p>
-                </a>
-                <a href="#" @click.prevent="toggleGrd">
-                    <i class="fa-solid fa-chart-simple"></i>
-                    <p><b>Grade Level</b></p>
-                </a>
-            </div><br><br><br><hr>
-            <div class="btn-bot">
-                <i class="fa-solid fa-gear"></i>
-                <a href="#">Setting</a>
+            <div class="head-right">
+                <div class="notif">
+                    <i class="fa-solid fa-bell"></i>
+                    <label for="">2</label>
+                </div>
+                 <img src="../components/images/helloCutie.jpg" width="45px" alt="">
+                <div>
+                    <h4>Richard Dolocanog</h4>
+                    <p>Principal</p>
+                </div>
             </div>
-
         </div>
         <div class="main">
-            <div class="head">
-                <img src="../components/images/HelloCutie.jpg" class="logo" width="50px" height="50px" alt="">
-                <img src="../components/images/deped.png" width="50px" height="50px" alt="">
+            <div class="sidebar">
+                <div class="buttons">
+                    <router-link v-for="button in buttons" :to="button.link" class="btn">
+                        <i :class="button.icon"></i>
+                        {{ button.name }}
+                    </router-link>
+                </div>
+                <div class="action">
+                    <i class="fa-solid fa-hand-sparkles"></i>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, culpa?</p>
+                    <div>
+                        <button class="decline">Decline</button>
+                        <button class="accept">Accept</button>
+                    </div>
+                </div>
+                <div class="others">
+                    <a href="">
+                        <i class="fa-solid fa-gear"></i>
+                        Setting
+                    </a>
+                    <a href="">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </div>
             </div>
-            <div class="center">
-                <Dashboard v-if="isDash"/>
-                <Students v-if="isStudent"/>
-                <Attendance v-if="isAttendance"/>
-                <Advisers v-if="isTeacher"/>
-                <GradeLevel v-if="isGradeLevel"/>
+            <div class="view">
+                <router-view></router-view>
             </div>
         </div>
     </div>
 </template>
-<style>
-#actv{
-    background: #d8dbdf;
-}
+<style scoped>
+    .dash-wrap{
+        background: #e2e5e7;
+    }
 
-.container{
-    background:  #d8dbdf;
-    display: flex;
-}
+    .head{
+        padding: 10px 30px;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+    }
+    .head img{
+        border-radius: 100%;
+    }
+    .head .title, .head-right{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .head-right i{
+        font-size: 20px;
+    }
 
-.sidebar{
-    background: white;
-    width: 20%;
-    text-align: center;
-}
+    .head-right label{
+        position: relative;
+        top: -10px;
+        left: -5px;
+        padding: 3px 5px;
+        background: red;
+        color: white;
+        border-radius: 100px;
+        font-size: 12px;
+    }
 
-.sidebar .profile{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 0 0 30px 0;
-    border-bottom: 1px solid rgb(212, 204, 204);
-}
+    .head-right p{
+        color: gray;
+    }
 
-.sidebar img{
-    border-radius: 100%;
-    margin-top: 10px;
-}
+    .main{
+        display: flex;
+    }
 
-.sidebar h1{
-    color: black;
-    font-weight: 600;
-    font-size: 18px;
-}
+    .sidebar{
+        width: 20%;
+        background: white;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-.buttons{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
+    .sidebar .buttons{
+        display: grid;
+        gap: 10px;
+        text-align: left;
+        padding: 10px 0;
+    }
 
-.buttons a{
-    text-decoration: none;
-    color: black;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 15px 70px;
-    display: flex;
-    gap: 10px;
-}
+    .buttons .btn{
+        padding:15px 0px 15px 40px;
+        width: 84%;
+    }
+    .btn i{
+        width: 40px;
+        text-align: center;
+    }
+    .btn:hover{
+        background: #126cc0;
+        color: white;
+    }
 
-.btn-bot{
-    padding: 20px;
-    display: flex;
-    gap: 10px;
-    padding: 20px 70px;
-    font-size: 18px;
-}
+    .action{
+        padding: 15px;
+        background: #d1d2d3;
+        margin: 20px;
+        display: grid;
+        gap: 10px;
+        border-radius: 10px;
+    }
 
-.btn-bot a{
-    text-decoration: none;
-    color: black;
-}
+    .action div{
+        display: flex;
+        justify-content: space-around;
+    }
 
-#active{
-    background: #a9b3c0;
-}
+    .action i{
+        font-size: 25px;
+        color: #ffbb00;
+    }
 
-.main{
-    width: 80%;
-}
+    .action button{
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
 
-.main .head{
-    background: white;
-    padding: 10px 50px;
-    display: flex;
-    justify-content: right;
-    gap: 20px;
-}
+    .action .decline{
+        border: 1px solid red;
+        background: #ff000052;
+    }
+    .action .accept{
+        border: 1px solid green;
+        background: #00ff0052;
+    }
 
-.logo{
-    border-radius: 100%;
-}
+    .others{
+        display: grid;
+        text-align: bottom;
+        gap: 10px;
+        padding: 20px;
+        height: 10%;
+        border-top: 1px solid gray;
+    }
 
-.center{
-    padding: 20px;
-}
+    .view{
+        padding: 30px;
+        width: 80%;
+    }
 </style>
