@@ -1,7 +1,8 @@
 <script setup>
 import {ref, computed} from 'vue'
+import addStudents from './AddStudents.vue'
 
-const gradeLevels = ref(['Grade I', 'Grade II', 'Grade III', 'Grade IV', 'Grade V', 'Grade VI'])
+const gradeLevels = ref(['I', 'II', 'III', 'IV', 'V', 'VI'])
 const students = ref([
     {
         id: '6322721',
@@ -13,7 +14,14 @@ const students = ref([
         street: 'So. Mabuni',
         zone: '1',
         gender: 'male',
-        section: 'kamatis'
+        section: 'kamatis',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
     },
     {
         id: '7323772',
@@ -25,7 +33,14 @@ const students = ref([
         street: 'So. Mabuni',
         zone: '1',
         gender: 'female',
-        section: 'buongon'
+        section: 'buongon',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
     },
     {
         id: '3267423',
@@ -37,13 +52,98 @@ const students = ref([
         street: 'So. Mabuni',
         zone: '1',
         gender: 'male',
-        section: 'manga'
+        section: 'manga',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
+    },
+    {
+        id: '6322721',
+        profile: './images/helloCutie.jpg',
+        name: 'Roland Clarion',
+        gradeLvl: 'III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1',
+        gender: 'male',
+        section: 'kamatis',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
+    },
+    {
+        id: '7323772',
+        profile: './images/helloCutie.jpg',
+        name: 'Rosmarie Panilagao',
+        gradeLvl: 'III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1',
+        gender: 'female',
+        section: 'buongon',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
+    },
+    {
+        id: '3267423',
+        profile: './images/helloCutie.jpg',
+        name: 'Christian Mark Nepa',
+        gradeLvl: 'III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1',
+        gender: 'male',
+        section: 'manga',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
+    }, 
+    {
+        id: '3267423',
+        profile: './images/helloCutie.jpg',
+        name: 'Christian Mark Nepa',
+        gradeLvl: 'III',
+        lrn: '7462548723',
+        barangay: 'Guadalupe',
+        street: 'So. Mabuni',
+        zone: '1',
+        gender: 'male',
+        section: 'manga',
+        logs: [
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            }
+        ]
     }
 ])
 
 const key = ref(0);
 const isShow = ref(false);
+const active = ref('active')
 const notFound = ref(true)
+const isAdd = ref(true)
 
 function show(id){
     key.value = id;
@@ -53,24 +153,20 @@ const searchInput = ref('')
 // Define a computed property to filter students based on search query
 const filteredStudents = computed(() => {
   const search = searchInput.value.toLowerCase()
+//   const level = filterLevel.value.toLowerCase()
   return students.value.filter(student =>
-    student.name.toLowerCase().includes(search) || student.lrn.includes(search)
+    student.name.toLowerCase().includes(search) || student.lrn.includes(search) 
   )
 })
 
-// Define a computed property to filter grade based on search query
-const filteredLevel = computed(() => {
-  const level = filtered.value.toLowerCase()
-  return gradeLevels.value.filter(grdLvl =>
-    grdLvl.toLowerCase().includes(level)
-  )
-})
-
-if (!filteredStudents) {
+if (filteredStudents.value = '') {
     notFound.value = !notFound.value
 }
+
+
 </script>
 <template>
+    <add-students v-if="isAdd" class="add-students"></add-students>
     <div class="container">
         <div class="students-list">
             <div class="top">
@@ -79,22 +175,25 @@ if (!filteredStudents) {
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="search" v-model="searchInput" placeholder="Enter ID or Name">
                 </div>
+                <div class="filter">
+                    <select name="" id="" v-model="filterLevel">
+                        <option  v-for="gradeLevel in gradeLevels" :key="gradeLevel" :value="gradeLevel">Grade {{ gradeLevel }}</option>
+                    </select>
+                    <a href=""><i class="fa-solid fa-plus"></i> Student</a>
+                </div>
             </div>
-            <div class="filter">
-                <select name="" id="" v-model="filtered">
-                    <option value="" v-for="gradeLevel in filteredLevel">{{ gradeLevel }}</option>
-                </select>
-            </div>
-                <table>
+            <div class="dta-tble">
+                <table v-if="notFound" >
                     <tr>
                         <th>Profile</th>
                         <th>name</th>
                         <th>LRN</th>
                         <th>Barangay</th>
                         <th>Street</th>
+                        <th>Zone</th>
                     </tr>
-                    <tr v-for="(student, index) in filteredStudents" class="list" v-if="notFound">
-                        <td><img src="./images/helloCutie.jpg" width="40px" alt=""></td>
+                    <tr v-for="(student, index) in filteredStudents" :key="student.id" @click="show(index)" class="list" :id="(key == index) ? active : ''">
+                        <td><img src="./images/avatar.avif" width="40px" alt=""></td>
                         <td>
                             <h4>{{ student.name }}</h4>
                             <p>Grade {{ student.gradeLvl }}</p>
@@ -102,37 +201,20 @@ if (!filteredStudents) {
                         <td><p>{{ student.lrn }}</p></td>
                         <td><p>{{ student.barangay }}</p></td>
                         <td><p>{{ student.street }}</p></td>
-                    </tr>
-                    <tr v-if="!notFound">
-                        <td></td>
-                        <td><p>No data found</p></td>
-                        <td><p>No data found</p></td>
-                        <td><p>No data found</p></td>
-                        <td><p>No data found</p></td>
+                        <td><p style="text-align:center">{{ student.zone }}</p></td>
+                        
                     </tr>
                 </table>
-                <!-- <div class="list">
-                    <div class="label">
-                        <div width="50px">Profile</div>
-                        <div  width="200px">Name</div>
-                        <div width="100px">LRN</div>
-                        <div  width="100px">Barangay</div>
-                        <div  width="50px">Zone</div>
-                    </div>
-                    <div class="students" v-for="(student, index) in filteredStudents" @click="show(index)">
-                        <div><img src="./images/helloCutie.jpg" width="40px" alt=""></div>
-                        <div class="name"><h4>{{ student.name }}</h4><p>{{ student.gradeLvl }}</p></div>
-                        <div class="label1">{{ student.lrn }}</div>
-                        <div class="label1">{{ student.barangay }}</div>
-                        <div class="label1">{{ student.zone }}</div>
-                    </div>
-                </div> -->
+                <center v-else>
+                   <div>No data found</div>
+                </center>
+            </div>
         </div>
         <div class="side">
             <div class="person-info">
                 <h1>Students Information</h1>
                 <div class="profile">
-                    <img src="./images/helloCutie.jpg" width="80px" alt="">
+                    <img src="./images/avatar.avif" width="80px" alt="">
                     <h2>{{ students[key].name }}</h2>
                     <p>Stud id: {{ students[key].id }}</p>
                 </div>
@@ -160,51 +242,99 @@ if (!filteredStudents) {
                     </div>
                 </div>
             </div>
-            <!-- <div class="logs">
-
-            </div> -->
+        </div>
+        <div class="log">
+            <h5>Logs</h5><br>
+            <div class="log-info" v-for="(log, i) in students[key].logs" :key="i">
+                <div class="line" v-if="i != 0"></div>
+                <p :class="log.status" :title="log.time+' on '+log.date">{{ log.status }}</p>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
+.add-students{
+    z-index: 100;
+}
 .container{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 .students-list{
     width: 60%;
-    height: 81vh;
+    height: 88.5vh;
     background: white;
     border-radius: 3px;
-    box-shadow:  0 5px 5px #80808080;
+    box-shadow:  5px 0 20px #80808080;
 }
 
-.side{
-    display: grid;
-    gap: 20px;
-    width: 40%;
-}
 
 .person-info{
     background: white;
-    height: 81vh;
+    max-height: 88.5vh;
+    width: 50vh;
     border-radius: 3px;
-    box-shadow:  0 5px 5px #80808080;
+    box-shadow:  5px 0 20px #80808080;
 }
 
-.logs{
+.log{
     background: white;
-    height: 26vh;
-    border-radius: 3px;
-    box-shadow:  0 5px 5px #80808080;
+    width: 12vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    border: 1px solid #3da1ff;
+    border-radius: 10px;
+    max-height: 84vh;
 }
 
+.log-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.log p{
+    width: 35px;
+    font-size: 12px;
+    padding: 10px 0;
+    border-radius: 100%;
+    text-align: center;
+    background: #00b7ff9c;
+    border: 1px solid #0a82c7;
+    color: white;
+    cursor: pointer;
+    transition: ease-in-out 1s;
+}
+
+
+.log .out{
+    background: #00aeff;
+    border: 1px solid #00aeff;
+}
+
+.log .none{
+    background: #ff0000d5;
+    border: 1px solid #ff0000;
+}
+.line{
+    border-left: 1px solid rgb(187, 184, 184);
+    height: 10px;
+    width: 0;
+}
 .top{
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 20px 30px;
-    border-bottom: 1px solid #8f8e8e;
+    padding: 20px 10px 10px 10px;
+    border-bottom: 1px solid #bbb7b7;
 }
 
 .search{
@@ -213,9 +343,12 @@ if (!filteredStudents) {
     display: flex;
     gap: 10px;
     align-items: center;
+    background: #f2f2f3;
+    border-radius: 3px;
 }
 
 .search input{
+    background: none;
     border: none;
     padding: 5px 0;
 }
@@ -225,61 +358,92 @@ if (!filteredStudents) {
     border: 0;
 }
 
-
-/* .list .label{
+.filter{
     display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-.list .students{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 10px 20px;
+    gap: 10px;
+    justify-content: right;
+    padding: 10px 15px;
 }
 
-.students:hover{
-    background: #3da1ff;
-}
-
-.students .label1{
-    text-align: center;
-    width: 90px;
-    max-width: 90px;
-}
-
-.students .name{
-    width: 200px;
-}
-
-.name h4{
+.filter a{
+    background: #1079db;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 3px;
     font-size: 15px;
 }
 
-.name p{
-    font-size: 12px;
-} */
+.filter a:hover{
+    background: #3da1ff;
+}
+
+.dta-tble{
+    max-height:70vh;
+    overflow-y: scroll;
+    transition: 0.3s;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+
+table{
+    border-collapse: collapse; 
+    width: 100%;
+}
 
 table tr th{
+    position: sticky;
+    top: 0;
+    background: white;
+    box-shadow: 0px 3px 3px #bbb7b7;
     color: gray;
-    font-family: 100;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text with an ellipsis if it overflows */
+    white-space: nowrap; 
 }
 
 table tr th, tr td{
+    cursor: pointer;
     text-align: left;
     padding:10px 10px ;
     outline: 0;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+}
+
+tr td img{
+    border-radius: 100%;
 }
 
 tr th, p{
-    color: #8f8e8e;
+    font-size: 15px;
+}
+
+.list{   
+    border-bottom: 1px solid #d0d3d3;
+    transition:ease-in-out 0.3s;
 }
 
 table .list:hover{
-    background: #3da1ff;
-    border: none;
+    background: #1079db;
     color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 20px #474747;
+    
+}
+
+#active{
+    background: #1079db;
+    color: white;
+    border-bottom: none;
 }
 
 .person-info h1{
@@ -293,6 +457,7 @@ table .list:hover{
     flex-direction: column;
     align-items: center;
     width: 100%;
+    transition: ease-in-out 1s;
 }
 
 .profile img{
@@ -300,11 +465,12 @@ table .list:hover{
 }
 
 .profile h2{
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .profile p{
     color: gray;
+    font-size: 12px;
 }
 
 .details {
@@ -327,6 +493,10 @@ table .list:hover{
     color: gray;
 }
 .details div .label-details{
-    width: 100px;
+    width: 70px;
+}
+
+.info-details{
+    font-weight: 600;
 }
 </style>

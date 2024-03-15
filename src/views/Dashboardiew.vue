@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import {RouterLink, RouterView } from 'vue-router'
 
 const buttons = [
@@ -23,6 +24,11 @@ const buttons = [
         icon: 'fa-brands fa-microsoft'
     },
 ]
+const active = ref('active')
+const key = ref(0)
+function click(keyBtn){
+    key.value = keyBtn;
+}
 </script>
 <template>
     <div class="dash-wrap">
@@ -46,7 +52,7 @@ const buttons = [
         <div class="main">
             <div class="sidebar">
                 <div class="buttons">
-                    <router-link v-for="button in buttons" :to="button.link" class="btn">
+                    <router-link  v-for="(button, index) in buttons" :to="button.link" @click="click(index)" v-bind="index" class="btn" :id="(index == key)? active : ''">
                         <i :class="button.icon"></i>
                         {{ button.name }}
                     </router-link>
@@ -77,8 +83,13 @@ const buttons = [
     </div>
 </template>
 <style scoped>
+    #active{
+        background: #3da1ff;;
+        color: white;
+    }
+
     .dash-wrap{
-        background: #e2e5e7;
+        background: #f8f9fa;
     }
 
     .head{
@@ -86,6 +97,7 @@ const buttons = [
         display: flex;
         justify-content: space-between;
         background: white;
+        box-shadow: 0px 0px 3px #646566;
     }
     .head img{
         border-radius: 100%;
@@ -93,18 +105,21 @@ const buttons = [
     .head .title, .head-right{
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 15px;
         text-align: center;
     }
     
     .head-right i{
         font-size: 20px;
+        padding: 10px;
+        background: #e6e7e7;
+        border-radius: 100%;
     }
 
     .head-right label{
         position: relative;
         top: -10px;
-        left: -5px;
+        left: -10px;
         padding: 3px 5px;
         background: red;
         color: white;
@@ -127,31 +142,32 @@ const buttons = [
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        box-shadow:  1px 0px 3px #a9acac;
     }
 
     .sidebar .buttons{
         display: grid;
-        gap: 10px;
         text-align: left;
         padding: 10px 0;
     }
 
     .buttons .btn{
-        padding:15px 0px 15px 40px;
-        width: 84%;
+        padding:15px 0px 15px 15px;
+        width: 94%;
     }
     .btn i{
         width: 40px;
         text-align: center;
     }
     .btn:hover{
-        background: #126cc0;
+        background: #3da1ff;
         color: white;
+        
     }
 
     .action{
         padding: 15px;
-        background: #d1d2d3;
+        background: #e6e7e7;
         margin: 20px;
         display: grid;
         gap: 10px;
@@ -174,12 +190,13 @@ const buttons = [
     }
 
     .action .decline{
-        border: 1px solid red;
-        background: #ff000052;
+        border: 1px solid #ff1100ad;
+        background: #ffffff52;
     }
     .action .accept{
-        border: 1px solid green;
-        background: #00ff0052;
+        border: 1px solid #126cc0;
+        background: #126cc0;
+        color: white;
     }
 
     .others{
@@ -192,7 +209,7 @@ const buttons = [
     }
 
     .view{
-        padding: 30px;
+        padding: 10px;
         width: 80%;
     }
 </style>

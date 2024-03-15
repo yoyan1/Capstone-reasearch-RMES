@@ -27,7 +27,7 @@ form{
   display: flex;
   gap: 20px;
   flex-direction: column;
-  padding: 40px;
+  padding: 40px 60px;
   background: white;
   border-radius: 3px;
 }
