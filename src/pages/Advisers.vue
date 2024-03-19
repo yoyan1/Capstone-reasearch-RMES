@@ -1,6 +1,6 @@
 <script setup>
 import {ref, computed} from 'vue'
-import addStudents from './AddStudents.vue'
+import addStudents from '../components/AddStudents.vue'
 
 const gradeLevels = ref(['I', 'II', 'III', 'IV', 'V', 'VI'])
 const students = ref([
@@ -159,27 +159,27 @@ const filteredStudents = computed(() => {
   )
 })
 
-if (filteredStudents.value = '') {
+if (!filteredStudents) {
     notFound.value = !notFound.value
 }
 
 
 </script>
 <template>
-    <add-students v-if="isAdd" class="add-students"></add-students>
+    <add-students v-if="!isAdd" class="add-students"></add-students>
     <div class="container">
         <div class="students-list">
             <div class="top">
-                <h4>Students</h4>
+                <h4>Teachers</h4>
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="search" v-model="searchInput" placeholder="Enter ID or Name">
                 </div>
                 <div class="filter">
-                    <select name="" id="" v-model="filterLevel">
+                    <select name="" id="" >
                         <option  v-for="gradeLevel in gradeLevels" :key="gradeLevel" :value="gradeLevel">Grade {{ gradeLevel }}</option>
                     </select>
-                    <a href=""><i class="fa-solid fa-plus"></i> Student</a>
+                    <a href="" ><i class="fa-solid fa-plus"></i> Teacher</a>
                 </div>
             </div>
             <div class="dta-tble">
@@ -193,7 +193,7 @@ if (filteredStudents.value = '') {
                         <th>Zone</th>
                     </tr>
                     <tr v-for="(student, index) in filteredStudents" :key="student.id" @click="show(index)" class="list" :id="(key == index) ? active : ''">
-                        <td><img src="./images/avatar.avif" width="40px" alt=""></td>
+                        <td><img src="../components/images/avatar.avif" width="40px" alt=""></td>
                         <td>
                             <h4>{{ student.name }}</h4>
                             <p>Grade {{ student.gradeLvl }}</p>
@@ -205,16 +205,16 @@ if (filteredStudents.value = '') {
                         
                     </tr>
                 </table>
-                <center v-else>
+                <div style="text-align:center" v-else>
                    <div>No data found</div>
-                </center>
+                </div>
             </div>
         </div>
         <div class="side">
             <div class="person-info">
                 <h1>Students Information</h1>
                 <div class="profile">
-                    <img src="./images/avatar.avif" width="80px" alt="">
+                    <img src="../components/images/avatar.avif" width="80px" alt="">
                     <h2>{{ students[key].name }}</h2>
                     <p>Stud id: {{ students[key].id }}</p>
                 </div>
@@ -378,7 +378,7 @@ if (filteredStudents.value = '') {
 }
 
 .dta-tble{
-    max-height:70vh;
+    max-height:75vh;
     overflow-y: scroll;
     transition: 0.3s;
 }

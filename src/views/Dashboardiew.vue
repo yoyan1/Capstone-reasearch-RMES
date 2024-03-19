@@ -15,7 +15,7 @@ const buttons = [
     },
     {
         name: 'Teachers Information',
-        link: '',
+        link: 'advisers',
         icon: 'fa-solid fa-chalkboard-user'
     },
     {
@@ -52,7 +52,7 @@ function click(keyBtn){
         <div class="main">
             <div class="sidebar">
                 <div class="buttons">
-                    <router-link  v-for="(button, index) in buttons" :to="button.link" @click="click(index)" v-bind="index" class="btn" :id="(index == key)? active : ''">
+                    <router-link  v-for="(button, index) in buttons" :to="button.link" @click="click(index)" :key="index" class="btn" :id="(index == key)? active : ''">
                         <i :class="button.icon"></i>
                         {{ button.name }}
                     </router-link>

@@ -24,12 +24,17 @@ const router = createRouter({
       children: [
         {
           path: 'home',
-          component: () => import('../components/Dashboard.vue'),
+          component: () => import('../pages/Dashboard.vue'),
 
         },
         {
           path: 'students',
-          component: () => import('../components/Students.vue'),
+          component: () => import('../pages/Students.vue'),
+
+        },
+        {
+          path: 'advisers',
+          component: () => import('../pages/Advisers.vue'),
 
         }
       ]

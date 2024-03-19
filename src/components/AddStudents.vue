@@ -1,42 +1,54 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 defineProps({
     Add: Function
 })
 const emits = defineEmits('close')
-
 const steps = ref(1)
-const isFirstStep = ref(true)
-const isSecondeStep = ref(false)
-const isThird = ref(false)
-const isSecond = ref(false)
 
-function next(){
-    if(isFirstStep){
-        isFirstStep.value = false
-        isSecondeStep.value = true
-        isSecond.value = true
-        steps.value += 1;
+const addressess = ref([
+    {
+        barangayName: 'Guadalupe',
+        streets: [
+            {
+                streetName: 'Mabuni',
+                zones: [1, 2, 3, 4]
+            },
+            {
+                streetName: 'Panuolan',
+                zones: [1, 2, 3, 4]
+            }
+        ]
+    },
+    {
+        barangayName: 'Vuluangan',
+        streets: [
+            {
+                streetName: 'ambot',
+                zones: [4, 3, 2, 1]
+            },
+            {
+                streetName: 'Mabuni',
+                zones: [1, 2, 3, 4]
+            }
+        ]
     }
-    else if(isSecondeStep){
-        isThird.value = !isThird.value
-        isSecondeStep.value = !isSecondeStep.value
-        isFirstStep.value = false
-    } 
-}
+])
+const barangayInput = ref('')
+const streetInput = ref('')
+const zoneInput = ref('')
 
-function back(){
-    if(isSecondeStep){
-        isFirstStep.value = !isFirstStep.value
-        isSecond.value = !isSecondeStep.value
-        isSecondeStep.value = !isSecondeStep.value
-        steps.value -= 1;
-    } else{
-        isSecond.value = !isSecondeStep.value
-        isSecondeStep.value = !isSecondeStep.value
-        steps.value -= 1;
-    }
-}
+const filteredAddressess = computed(() => {
+    const selectedBarangay = barangayInput.value.toLowerCase()
+    const selectedStreet = streetInput.value.toLowerCase()
+    return addressess.value.filter(address =>
+        address.barangayName.toLowerCase().includes(selectedBarangay) &&
+        (selectedStreet === '' || address.streets.some(street => street.streetName.toLowerCase().includes(selectedStreet)))
+    )
+})
+
+
+
 </script>
 <template>
     <transition>
@@ -53,11 +65,11 @@ function back(){
                     </div>
                     <div class="lines">
                         <div class="line"></div>
-                        <div :class="(isSecond) ? 'line' : 'line-disabled'"></div>
-                        <div :class="(isThird) ? 'line' : 'line-disabled'"></div>
+                        <div :class="(steps >= 2) ? 'line' : 'line-disabled'"></div>
+                        <div :class="(steps >= 3) ? 'line' : 'line-disabled'"></div>
                     </div>
                 </div>
-                <div class="form form-1" v-if="isFirstStep">
+                <div class="form form-1" v-if="steps == 1">
                     <div class="input-wrap">
                         <label for="name">Fullname</label>
                         <input type="text" id="name">
@@ -82,38 +94,42 @@ function back(){
                         <label for="lrn">LRN</label>
                         <input type="text" id="lrn">
                     </div>
-                    <a href="#" class="next" @click.prevent="next">Nex step</a>
+                    <a href="#" class="next" @click.prevent="steps++">Nex step</a>
                 </div>
-                <div class="form form-2" v-if="isSecondeStep">
-                    <a href="#" class="back" @click.prevent="back"><i class="fa-solid fa-arrow-left"></i> back</a>
+                <div class="form form-2" v-if="steps == 2">
+                    <a href="#" class="back" @click.prevent="steps--"><i class="fa-solid fa-arrow-left"></i> back</a>
                     <div class="input-wrap">
                         <label for="name">Parents/Guardian</label>
-                        <input type="text" id="name">
+                        <input type="text"  id="name">
                     </div>
                     <div class="input-wrap">
-                        <label for="grd-lvl">Grade level</label>
-                        <select name="" id="grdlvl">
-                            <option value="">Grade I</option>
-                            <option value="">Grade II</option>
-                            <option value="">Grade III</option>
+                        <label for="grd-lvl">barangay</label>
+                        <select id="grdlvl" v-model="barangayInput">
+                            <option v-for="barangay in addressess"  :key="barangay.barangayName" :value="barangay.barangayName">{{ barangay.barangayName }}</option>
                         </select>
                     </div>
                     <div class="input-wrap">
-                        <label for="section">Section</label>
-                        <select name="" id="section">
-                            <option value="">Kamatis</option>
-                            <option value="">Manga</option>
-                            <option value="">Lomboy</option>
+                        <label for="section">Street</label>
+                        <select name="" id="section" v-model="streetInput">
+                            <template v-for="(barangay, index) in filteredAddressess" :key="index" >
+                                <option v-for="street in barangay.streets" :key="street.streetName"> {{ street.streetName }} </option>
+                            </template>
                         </select>
                     </div>
                     <div class="input-wrap">
-                        <label for="lrn">LRN</label>
-                        <input type="text" id="lrn">
+                        <label for="section">Zone</label>
+                        <select name="" id="section" >
+                            <template v-for="(barangay, index) in filteredAddressess" :key="index" >
+                                <template v-for="street in barangay.streets">
+                                    <option v-for="zone in street.zones" :key="zone">{{ zone }}</option>
+                                </template>
+                            </template>
+                        </select>
                     </div>
-                    <a href="#" @click.prevent="next" class="next">Nex step</a>
+                    <a href="#" @click.prevent="steps++" class="next">Nex step</a>
                 </div>
-                <div class="form form-3" v-if="isThird">
-                    <a href="#" class="back" @click.prevent="back"><i class="fa-solid fa-arrow-left"></i> back</a>
+                <div class="form form-3" v-if="steps==3">
+                    <a href="#" class="back" @click.prevent="steps--"><i class="fa-solid fa-arrow-left"></i> back</a>
                     <!-- <div class="input-wrap">
                         <label for="name">Parents/Guardi</label>
                         <input type="text" id="name">
@@ -138,7 +154,7 @@ function back(){
                         <label for="lrn">LRN</label>
                         <input type="text" id="lrn">
                     </div> -->
-                    <a href="#" @click.prevent="next" class="next">Nex step</a>
+                    <a href="#" @click.prevent="steps++" class="next">Nex step</a>
                 </div>
             </div>
         </div>

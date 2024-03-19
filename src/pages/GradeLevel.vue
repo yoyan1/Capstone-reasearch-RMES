@@ -1,5 +1,5 @@
 <script setup>
-import AddStudents from './AddStudents.vue';
+import AddStudents from '../components/AddStudents.vue';
 import {ref} from 'vue';
 
 const isAdd = ref(false)
@@ -14,7 +14,7 @@ function Add() {
     <div class="studentList">
         <table>
             <tr>
-                <th>ALL ADVISERS</th>
+                <th>ALL GRADES</th>
                 <th></th>
                 <th></th>
                 <th></th>
