@@ -36,9 +36,14 @@
             </div>
         </div>
     </div>
-    <!-- <div class="chart">
+    <div class="bottom">
+        <div class="chart">
 
-    </div> -->
+        </div>
+        <div class="analytics">
+
+        </div>
+    </div>
 </template>
 <style scoped>
 
@@ -56,23 +61,36 @@ h1{
 
 .students, .advisers, .barangay{
     padding: 20px;
-    color: white;
     border-radius: 3px;
     display: grid;
     gap: 10px;
     width: 20%;
     align-content: start;
+    background: white;
+    box-shadow: 0 0 5px #c5c5c5;
 }
-.students{
+.students i{
     background:  #9186f5;
 }
 
-.advisers{
+.advisers i{
     background:  #3183c7;
 }
 
-.barangay{
+.barangay i{
     background:  #3ca5ce;
+}
+
+.students{
+    border: 1px solid #9186f5;
+}
+
+.advisers{
+    border: 1px solid #3183c7;
+}
+
+.barangay{
+    border: 1px solid #3ca5ce;
 }
 
 .dash-con{
@@ -83,18 +101,33 @@ h1{
 
 .dash-con i{
     padding: 10px 10px;
-    background: #00000062;
     font-size: 25px;
     border-radius: 3px;
+    color: white;
 }
 
 .dashboard p{
     font-size: 15px;
 }
 
+
+.bottom{
+    display: flex;
+    gap: 20px;
+}
 .chart{
     margin-top: 10px;
+    width: 45%;
     height: 60vh;
     background: white;
+    box-shadow: 0px 0px 5px #c5c5c5;
+}
+
+.analytics{
+    margin-top: 10px;
+    width: 45%;
+    height: 60vh;
+    background: white;
+    box-shadow: 0px 0px 5px #c5c5c5;
 }
 </style>

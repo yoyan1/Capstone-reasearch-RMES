@@ -55,16 +55,10 @@ if (!filteredteachers) {
     <div class="container">
         <div class="teachers-list">
             <div class="top">
-                <h4>Teachers</h4>
+                <h4>Parents Account</h4>
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="search" v-model="searchInput" placeholder="Enter ID or Name">
-                </div>
-                <div class="filter">
-                    <select name="" id="" >
-                        <option  v-for="gradeLevel in gradeLevels" :key="gradeLevel" :value="gradeLevel">Grade {{ gradeLevel }}</option>
-                    </select>
-                    <a href="" ><i class="fa-solid fa-plus"></i> Teacher</a>
                 </div>
             </div>
             <div class="dta-tble">
@@ -184,25 +178,6 @@ if (!filteredteachers) {
 .search input:focus{
     outline: 0;
     border: 0;
-}
-
-.filter{
-    display: flex;
-    gap: 10px;
-    justify-content: right;
-    padding: 10px 15px;
-}
-
-.filter a{
-    background: #1079db;
-    padding: 5px 10px;
-    color: white;
-    border-radius: 3px;
-    font-size: 15px;
-}
-
-.filter a:hover{
-    background: #3da1ff;
 }
 
 .dta-tble{

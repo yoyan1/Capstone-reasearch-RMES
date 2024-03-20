@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import Notification from '../components/Notification.vue'
 import {RouterLink, RouterView } from 'vue-router'
 
 const buttons = [
@@ -19,9 +20,14 @@ const buttons = [
         icon: 'fa-solid fa-chalkboard-user'
     },
     {
-        name: 'Dashboard',
-        link: '',
-        icon: 'fa-brands fa-microsoft'
+        name: 'Parents Accounts',
+        link: 'parents',
+        icon: 'fa-solid fa-users'
+    },
+    {
+        name: 'Requests',
+        link: 'request',
+        icon: 'fa-solid fa-code-pull-request'
     },
 ]
 const active = ref('active')
@@ -29,8 +35,14 @@ const key = ref(0)
 function click(keyBtn){
     key.value = keyBtn;
 }
+
+const isNotif = ref(false)
+function toggleNotif(){
+    isNotif.value = !isNotif.value
+}
 </script>
 <template>
+    <notification v-if="isNotif"></notification>
     <div class="dash-wrap">
         <div class="head">
             <div class="title">
@@ -39,14 +51,16 @@ function click(keyBtn){
             </div>
             <div class="head-right">
                 <div class="notif">
-                    <i class="fa-solid fa-bell"></i>
+                    <i @click="toggleNotif" class="fa-solid fa-bell"></i>
                     <label for="">2</label>
                 </div>
-                 <img src="../components/images/helloCutie.jpg" width="45px" alt="">
-                <div>
-                    <h4>Richard Dolocanog</h4>
-                    <p>Principal</p>
-                </div>
+                <router-link to="profile" class="profile">
+                    <img src="../components/images/helloCutie.jpg" width="45px" alt="">
+                    <div>
+                        <h4>Richard Dolocanog</h4>
+                        <p>Principal</p>
+                    </div>
+                </router-link>
             </div>
         </div>
         <div class="main">
@@ -109,12 +123,19 @@ function click(keyBtn){
         text-align: center;
     }
     
+    .head .profile{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
     .head-right i{
         font-size: 20px;
         padding: 10px;
         background: #e6e7e7;
         border-radius: 100%;
+        cursor: pointer;
     }
+
 
     .head-right label{
         position: relative;

@@ -240,25 +240,34 @@ function add(){
                 <div class="details">
                     <h3>Basic Details</h3>
                     <div>
-                        <p class="label-details">Grade Level</p>:
-                        <p class="info-details">{{ students[key].gradeLvl }}</p>
+                        <div>
+                            <p class="label-details">Grade Level</p>:
+                            <p class="info-details">{{ students[key].gradeLvl }}</p>
+                        </div>
+                        <div>
+                            <p class="label-details">Section</p>:
+                            <p class="info-details">{{ students[key].section }}</p>
+                        </div>
                     </div>
                     <div>
-                        <p class="label-details">Section</p>:
-                        <p class="info-details">{{ students[key].section }}</p>
-                    </div>
-                    <div>
-                        <p class="label-details">Gender</p>:
-                        <p class="info-details">{{ students[key].gender }}</p>
-                    </div>
-                    <div>
-                        <p class="label-details">LRN No.</p>:
-                        <p class="info-details">{{ students[key].lrn }}</p>
+                        <div>
+                            <p class="label-details">Gender</p>:
+                            <p class="info-details">{{ students[key].gender }}</p>
+                        </div>
+                        <div>
+                            <p class="label-details">LRN No.</p>:
+                            <p class="info-details">{{ students[key].lrn }}</p>
+                        </div>
                     </div>
                     <div>
                         <p class="label-details">Address</p>:
                         <p class="info-details">{{ students[key].barangay }}, {{ students[key].street }}</p>
                     </div>
+                </div>
+                <div class="action">
+                    <i>d</i>
+                    <i>d</i>
+                    <i>s</i>
                 </div>
             </div>
         </div>
@@ -300,6 +309,17 @@ function add(){
     width: 50vh;
     border-radius: 3px;
     box-shadow:  5px 0 20px #80808080;
+}
+
+.action{
+    display: flex;
+    gap: 10px;
+    justify-content: right;
+    padding: 10px 15px;
+}
+
+.action i{
+    cursor: pointer;
 }
 
 .log{
@@ -511,9 +531,7 @@ table .list:hover{
     font-size: 12px;
     color: gray;
 }
-.details div .label-details{
-    width: 70px;
-}
+
 
 .info-details{
     font-weight: 600;

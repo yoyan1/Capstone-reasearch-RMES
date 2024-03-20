@@ -36,7 +36,22 @@ const router = createRouter({
           path: 'advisers',
           component: () => import('../pages/Advisers.vue'),
 
-        }
+        },
+        {
+          path: 'parents',
+          component: () => import('../pages/Parents.vue'),
+
+        },
+        {
+          path: 'request',
+          component: () => import('../pages/Request.vue'),
+
+        },
+        {
+          path: 'profile',
+          component: () => import('../pages/Profile.vue'),
+
+        },
       ]
     }
   ]
