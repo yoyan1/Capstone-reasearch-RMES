@@ -46,7 +46,7 @@ function toggleNotif(){
     <div class="dash-wrap">
         <div class="head">
             <div class="title">
-                <img src="../components/images/helloCutie.jpg" width="40px" alt="">
+                <img src="../components/images/RMES-logo.png" width="40px" alt="">
                 <h2>RMES</h2>
             </div>
             <div class="head-right">
@@ -55,7 +55,7 @@ function toggleNotif(){
                     <label for="">2</label>
                 </div>
                 <router-link to="profile" class="profile">
-                    <img src="../components/images/helloCutie.jpg" width="45px" alt="">
+                    <img src="../components/images/RMES-logo.png" width="45px" alt="">
                     <div>
                         <h4>Richard Dolocanog</h4>
                         <p>Principal</p>

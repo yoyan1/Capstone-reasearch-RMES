@@ -4,8 +4,13 @@
 <template>
   <div class="container">
     <div class="head">
-      <img src="" alt="">
-      <h2>STUDENTS MONITORING SYSTEM</h2>
+      <div class="school-wrap">
+        <img src="./images/RMES-logo.png" width="70px" alt="">
+        <div>
+          <h3>Ramon Magsaysay Elementary School</h3>
+          <p>san carlos City</p>
+        </div>
+      </div>
     </div>
     <div class="wrapper">
       <div class="left">
@@ -22,7 +27,7 @@
         </div>
       </div>
       <div class="right">
-        
+        <img src="./images/border.png" alt="">
       </div>
     </div>
   </div>
@@ -36,7 +41,6 @@
 .head{
   display: flex;
   justify-content: space-between;
-  padding: 30px 50px;
   color: white;
 }
 
@@ -51,11 +55,32 @@
 h1{
   color: white;
   font-weight: 100;
-  font-size: 40px;
+  font-size: 50px;
 }
 
+.the-welcome{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50vh;
+}
+
+.school-wrap{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #16161642;
+  padding-right: 60px;
+  margin-top: 10px;
+}
+
+.school-wrap img{
+  padding-left: 50px;
+  background: white;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px
+}
 .btn{
-  margin-top: 50px;
   display: flex;
   gap: 30px;
   margin-left: 20px;
@@ -75,14 +100,21 @@ h1{
 
 .left{
   padding: 50px 80px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .right{
-  height: 100vh;
+  height: 86.4vh;
   background: white;
   width: 50%;
   border-top-left-radius: 100%;
+}
+
+.right img{
+  padding: 30px 0 0 50px;
+  width: 30rem;
 }
 
 .contact{

@@ -1,58 +1,27 @@
 <script setup>
-import {ref, computed} from 'vue'
-import addStudents from '../components/AddStudents.vue'
+import StudentsListVue from '@/components/StudentsList.vue'
+import {ref, computed, onMounted} from 'vue'
+import addOrUpdate from '../components/AddOrUpdateStudents.vue'
+import StudentsList from '../components/StudentsList.vue'
+import StudentInfo from '../components/StudentInfo.vue'
 
 const gradeLevels = ref(['','I', 'II', 'III', 'IV', 'V', 'VI'])
 const students = ref([
     {
         id: '6322721',
-        profile: './images/helloCutie.jpg',
+        LRN: '374287346',
         name: 'Roland Clarion',
-        gradeLvl: 'I',
-        lrn: '7462548723',
-        barangay: 'Guadalupe',
-        street: 'So. Mabuni',
-        zone: '1',
         gender: 'male',
-        section: 'kamatis',
-        logs: [
-            {
-                status: 'in',
-                time: '06 : 00 am',
-                date: 'march 12, 2024'
-            }
-        ]
-    },
-    {
-        id: '7323772',
-        profile: './images/helloCutie.jpg',
-        name: 'Rosmarie Panilagao',
-        gradeLvl: 'II',
-        lrn: '7462548723',
+        parents: 'Rosmarie Panilagao',
+        city: 'San Carlos City',
         barangay: 'Guadalupe',
         street: 'So. Mabuni',
+        province: 'Negros Occidental',
         zone: '1',
-        gender: 'female',
-        section: 'buongon',
-        logs: [
-            {
-                status: 'in',
-                time: '06 : 00 am',
-                date: 'march 12, 2024'
-            }
-        ]
-    },
-    {
-        id: '3267423',
-        profile: './images/helloCutie.jpg',
-        name: 'Christian Mark Nepa',
-        gradeLvl: 'III',
-        lrn: '7462548723',
-        barangay: 'Guadalupe',
-        street: 'So. Mabuni',
-        zone: '1',
-        gender: 'male',
+        phoneNumber: '09349432722',
+        gradeLevel: 'III',
         section: 'manga',
+        adviser: 'Christian Mark Nepa',
         logs: [
             {
                 status: 'in',
@@ -63,15 +32,19 @@ const students = ref([
     },
     {
         id: '6322721',
-        profile: './images/helloCutie.jpg',
+        LRN: '374287346',
         name: 'Roland Clarion',
-        gradeLvl: 'IV',
-        lrn: '7462548723',
+        gender: 'male',
+        parents: 'Rosmarie Panilagao',
+        city: 'San Carlos City',
         barangay: 'Guadalupe',
         street: 'So. Mabuni',
+        province: 'Negros Occidental',
         zone: '1',
-        gender: 'male',
-        section: 'kamatis',
+        phoneNumber: '09349432722',
+        gradeLevel: 'III',
+        section: 'manga',
+        adviser: 'Christian Mark Nepa',
         logs: [
             {
                 status: 'in',
@@ -80,70 +53,43 @@ const students = ref([
             }
         ]
     },
-    {
-        id: '7323772',
-        profile: './images/helloCutie.jpg',
-        name: 'Rosmarie Panilagao',
-        gradeLvl: 'V',
-        lrn: '7462548723',
-        barangay: 'Guadalupe',
-        street: 'So. Mabuni',
-        zone: '1',
-        gender: 'female',
-        section: 'buongon',
-        logs: [
-            {
-                status: 'in',
-                time: '06 : 00 am',
-                date: 'march 12, 2024'
-            }
-        ]
-    },
-    {
-        id: '3267423',
-        profile: './images/helloCutie.jpg',
-        name: 'Christian Mark Nepa',
-        gradeLvl: 'VI',
-        lrn: '7462548723',
-        barangay: 'Guadalupe',
-        street: 'So. Mabuni',
-        zone: '1',
-        gender: 'male',
-        section: 'manga',
-        logs: [
-            {
-                status: 'in',
-                time: '06 : 00 am',
-                date: 'march 12, 2024'
-            }
-        ]
-    }, 
-    {
-        id: '3267423',
-        profile: './images/helloCutie.jpg',
-        name: 'Christian Mark Nepa',
-        gradeLvl: 'III',
-        lrn: '7462548723',
-        barangay: 'Guadalupe',
-        street: 'So. Mabuni',
-        zone: '1',
-        gender: 'male',
-        section: 'manga',
-        logs: [
-            {
-                status: 'in',
-                time: '06 : 00 am',
-                date: 'march 12, 2024'
-            }
-        ]
-    }
+
 ])
 
 const key = ref(0);
 const isShow = ref(false);
 const active = ref('active')
 const notFound = ref(true)
-const isAdd = ref(true)
+const isToggle = ref(true)
+const isAdd = ref(false)
+
+const studentData = ref(
+    {
+        id: '',
+        LRN: '',
+        name: '',
+        gender: '',
+        parents: '',
+        city: '',
+        barangay: '',
+        street: '',
+        province: '',
+        zone: '',
+        phoneNumber: '',
+        gradeLevel: '',
+        section: '',
+        adviser: '',
+        logs: [
+            {
+                status: '',
+                time: '',
+                date: ''
+            }
+        ]
+    },
+)
+
+onMounted(() => { studentData.value = {...studentData.value, ...students.value} })
 
 function show(id){
     key.value = id;
@@ -156,120 +102,62 @@ const filteredStudents = computed(() => {
   const level = filterLevel.value
   if (search && level){
     return students.value.filter(student =>
-        student.name.toLowerCase().includes(search) && student.gradeLvl == level || student.lrn.includes(search) && student.gradeLvl == level
+        student.name.toLowerCase().includes(search) && student.gradeLevel == level || student.LRN.includes(search) && student.gradeLevel == level
       )
   } else if(level){
      return students.value.filter(student =>
-        student.gradeLvl == level
+        student.gradeLevel == level
       )
   } else if  (search){
       return students.value.filter(student =>
-        student.name.toLowerCase().includes(search) || student.lrn.includes(search)
+        student.name.toLowerCase().includes(search) || student.LRN.includes(search)
       )
   }
   else{
     return students.value.filter(student =>
-        student.name.toLowerCase().includes(search) || student.lrn.includes(search) || student.gradeLvl == level
+        student.name.toLowerCase().includes(search) || student.LRN.includes(search) || student.gradeLevel == level
       )
   }
 })
 
 
-if (!filteredStudents.value ) {
+if (!filteredStudents) {
     notFound.value = !notFound.value
 }
 //toggle add
-function add(){
-    isAdd.value = !isAdd.value
+function toggleComponent(isAdd){
+    isToggle.value = !isToggle.value
+    isAdd.value = isAdd
 }
 
+//delete data from  array
+function DeleteStudents(id) {
+    students.value = students.value.filter(student => student.id !== id)
+    alert(id)
+}
 </script>
 <template>
-    <add-students v-if="!isAdd" @close="add" class="add-students"></add-students>
+    <add-or-update v-if="!isToggle" @close="toggleComponent" :gradeLevels="gradeLevels" class="add-students"></add-or-update>
     <div class="container">
         <div class="students-list">
             <div class="top">
                 <h4>Students</h4>
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="search" v-model="searchInput" placeholder="Enter ID or Name">
+                    <input type="search" v-model="searchInput" placeholder="Enter LRN or Name">
                 </div>
                 <div class="filter">
                     <select name="" id="" v-model="filterLevel">
                         <option  v-for="gradeLevel in gradeLevels" :key="gradeLevel" :value="gradeLevel"> {{ (gradeLevel != '')? 'Grade ' + gradeLevel : 'All' }}</option>
                     </select>
-                    <a href="" @click.prevent="add"><i class="fa-solid fa-plus"></i> Student</a>
+                    <a href="" @click.prevent="toggleComponent()"><i class="fa-solid fa-plus"></i> Student</a>
                 </div>
             </div>
-            <div class="dta-tble">
-                <table v-if="notFound" >
-                    <tr>
-                        <th>Profile</th>
-                        <th>name</th>
-                        <th>LRN</th>
-                        <th>Barangay</th>
-                        <th>Street</th>
-                        <th>Zone</th>
-                    </tr>
-                    <tr v-for="(student, index) in filteredStudents" :key="student.id" @click="show(index)" class="list" :id="(key == index) ? active : ''">
-                        <td><img src="../components/images/avatar.avif" width="40px" alt=""></td>
-                        <td>
-                            <h4>{{ student.name }}</h4>
-                            <p>Grade {{ student.gradeLvl }}</p>
-                        </td>
-                        <td><p>{{ student.lrn }}</p></td>
-                        <td><p>{{ student.barangay }}</p></td>
-                        <td><p>{{ student.street }}</p></td>
-                        <td><p style="text-align:center">{{ student.zone }}</p></td>
-                        
-                    </tr>
-                </table>
-                <div style="text-align:center" v-else>
-                   <div>No data found</div>
-                </div>
-            </div>
+            <studentsList :filteredStudents="filteredStudents" :activeKey="key" v-on:show="show"/>
+            
         </div>
         <div class="side">
-            <div class="person-info">
-                <h1>Students Information</h1>
-                <div class="profile">
-                    <img src="../components/images/avatar.avif" width="80px" alt="">
-                    <h2>{{ students[key].name }}</h2>
-                    <p>Stud id: {{ students[key].id }}</p>
-                </div>
-                <div class="details">
-                    <h3>Basic Details</h3>
-                    <div>
-                        <div>
-                            <p class="label-details">Grade Level</p>:
-                            <p class="info-details">{{ students[key].gradeLvl }}</p>
-                        </div>
-                        <div>
-                            <p class="label-details">Section</p>:
-                            <p class="info-details">{{ students[key].section }}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <p class="label-details">Gender</p>:
-                            <p class="info-details">{{ students[key].gender }}</p>
-                        </div>
-                        <div>
-                            <p class="label-details">LRN No.</p>:
-                            <p class="info-details">{{ students[key].lrn }}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="label-details">Address</p>:
-                        <p class="info-details">{{ students[key].barangay }}, {{ students[key].street }}</p>
-                    </div>
-                </div>
-                <div class="action">
-                    <i>d</i>
-                    <i>d</i>
-                    <i>s</i>
-                </div>
-            </div>
+            <student-info :studentData="students[key]" ></student-info>
         </div>
         <div class="log">
             <h5>Logs</h5><br>
@@ -311,16 +199,7 @@ function add(){
     box-shadow:  5px 0 20px #80808080;
 }
 
-.action{
-    display: flex;
-    gap: 10px;
-    justify-content: right;
-    padding: 10px 15px;
-}
 
-.action i{
-    cursor: pointer;
-}
 
 .log{
     background: white;
@@ -416,124 +295,5 @@ function add(){
     background: #3da1ff;
 }
 
-.dta-tble{
-    max-height:75vh;
-    overflow-y: scroll;
-    transition: 0.3s;
-}
-::-webkit-scrollbar{
-    display: none;
-}
 
-table{
-    border-collapse: collapse; 
-    width: 100%;
-}
-
-table tr th{
-    position: sticky;
-    top: 0;
-    background: white;
-    box-shadow: 0px 3px 3px #bbb7b7;
-    color: gray;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Truncate text with an ellipsis if it overflows */
-    white-space: nowrap; 
-}
-
-table tr th, tr td{
-    cursor: pointer;
-    text-align: left;
-    padding:10px 10px ;
-    outline: 0;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-}
-
-tr td img{
-    border-radius: 100%;
-}
-
-tr th, p{
-    font-size: 15px;
-}
-
-.list{   
-    border-bottom: 1px solid #d0d3d3;
-    transition:ease-in-out 0.3s;
-}
-
-table .list:hover{
-    background: #1079db;
-    color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 20px #474747;
-    
-}
-
-#active{
-    background: #1079db;
-    color: white;
-    border-bottom: none;
-}
-
-.person-info h1{
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 400;
-}
-
-.profile{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    transition: ease-in-out 1s;
-}
-
-.profile img{
-    border-radius: 100%;
-}
-
-.profile h2{
-    font-size: 15px;
-}
-
-.profile p{
-    color: gray;
-    font-size: 12px;
-}
-
-.details {
-    padding: 10px 20px;
-    display: grid;
-    gap: 10px;
-}
-
-.details h3{
-    font-size: 15px;
-}
-
-.details div{
-    display: flex;
-    gap: 10px;
-}
-
-.details div p{
-    font-size: 12px;
-    color: gray;
-}
-
-
-.info-details{
-    font-weight: 600;
-}
 </style>
