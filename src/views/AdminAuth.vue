@@ -22,7 +22,7 @@
 
 <style>
 .container{
-  background: #126cc0;
+  background: url(../components/images/children.jpg);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -37,6 +37,7 @@ form{
   align-items: center;
   padding: 40px 60px;
   background: white;
+  box-shadow: 0px 0px 5px 3px #858585;
   border-radius: 20px;
 }
 

@@ -4,6 +4,7 @@ import {ref, computed, onMounted} from 'vue'
 import addOrUpdate from '../components/AddOrUpdateStudents.vue'
 import StudentsList from '../components/StudentsList.vue'
 import StudentInfo from '../components/StudentInfo.vue'
+import printQr from '../components/printQr.vue'
 
 const gradeLevels = ref(['','I', 'II', 'III', 'IV', 'V', 'VI'])
 const students = ref([
@@ -31,7 +32,7 @@ const students = ref([
         ]
     },
     {
-        id: '6322721',
+        id: '6322822',
         LRN: '374287346',
         name: 'Roland Clarion',
         gender: 'male',
@@ -50,7 +51,12 @@ const students = ref([
                 status: 'in',
                 time: '06 : 00 am',
                 date: 'march 12, 2024'
-            }
+            },
+            {
+                status: 'in',
+                time: '06 : 00 am',
+                date: 'march 12, 2024'
+            },
         ]
     },
 
@@ -62,38 +68,16 @@ const active = ref('active')
 const notFound = ref(true)
 const isToggle = ref(true)
 const isAdd = ref(false)
-
-const studentData = ref(
-    {
-        id: '',
-        LRN: '',
-        name: '',
-        gender: '',
-        parents: '',
-        city: '',
-        barangay: '',
-        street: '',
-        province: '',
-        zone: '',
-        phoneNumber: '',
-        gradeLevel: '',
-        section: '',
-        adviser: '',
-        logs: [
-            {
-                status: '',
-                time: '',
-                date: ''
-            }
-        ]
-    },
-)
-
-onMounted(() => { studentData.value = {...studentData.value, ...students.value} })
-
+const isPrint = ref(false)
+const QrID = ref(null)
 function show(id){
     key.value = id;
 }
+function print(id){
+    isPrint.value = !isPrint.value
+    QrID.value = id
+}
+
 const searchInput = ref('')
 const filterLevel = ref('')
 // Define a computed property to filter students based on search query
@@ -125,19 +109,20 @@ if (!filteredStudents) {
     notFound.value = !notFound.value
 }
 //toggle add
-function toggleComponent(isAdd){
+function toggleComponent(isAdd, id){
     isToggle.value = !isToggle.value
     isAdd.value = isAdd
 }
 
 //delete data from  array
-function DeleteStudents(id) {
+function DeleteStudent(id) {
     students.value = students.value.filter(student => student.id !== id)
-    alert(id)
+    key.value = 0
 }
 </script>
 <template>
-    <add-or-update v-if="!isToggle" @close="toggleComponent" :gradeLevels="gradeLevels" class="add-students"></add-or-update>
+    <add-or-update v-if="!isToggle" @close="toggleComponent" :gradeLevels="gradeLevels" :isAdd="isAdd" class="add-students"></add-or-update>
+    <printQr class="print-qr" v-if="isPrint" @close="print" :id="QrID"></printQr>
     <div class="container">
         <div class="students-list">
             <div class="top">
@@ -153,11 +138,11 @@ function DeleteStudents(id) {
                     <a href="" @click.prevent="toggleComponent()"><i class="fa-solid fa-plus"></i> Student</a>
                 </div>
             </div>
-            <studentsList :filteredStudents="filteredStudents" :activeKey="key" v-on:show="show"/>
+            <studentsList :filteredStudents="filteredStudents" :activeKey="key" @show="show"/>
             
         </div>
         <div class="side">
-            <student-info :studentData="students[key]" ></student-info>
+            <student-info :studentData="students[key]" @edit="toggleComponent" @print="print" @delete="DeleteStudent"></student-info>
         </div>
         <div class="log">
             <h5>Logs</h5><br>
@@ -170,6 +155,10 @@ function DeleteStudents(id) {
 </template>
 <style scoped>
 .add-students{
+    z-index: 100;
+}
+
+.print-qr{
     z-index: 100;
 }
 .container{

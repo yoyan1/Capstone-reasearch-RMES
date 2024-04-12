@@ -45,8 +45,8 @@
         </div>
     </div>
 </template>
-<style scoped>
 
+<style scoped>
 h1{
     color: black;
     font-size: 20px;

@@ -1,22 +1,16 @@
-<script>
+<script setup>
 import {computed} from 'vue'
-export default{
-    data () {
-        return{
-            active: 'active',
-        }
-    },
-    props: ['filteredStudents', 'activeKey'],
-    setup(props) {
-        //define computed property based on a group
-        const recievedFilteredStudents = computed(() => {
+
+const active = 'active'
+const emits = defineEmits('show')
+const props = defineProps({
+    filteredStudents: Object,
+    activeKey: Number
+})
+
+const recievedFilteredStudents = computed(() => {
             return props.filteredStudents
         })
-        return {
-            recievedFilteredStudents
-        }
-    }
-}
 </script>
 <template>
     <div class="dta-tble">

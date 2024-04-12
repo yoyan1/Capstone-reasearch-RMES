@@ -15,8 +15,20 @@ defineComponent({
 const emits = defineEmits('close')
 const step = ref(1)
 const studentData = ref({
-    name: '',
-})
+        LRN: '',
+        name: '',
+        gender: '',
+        parents: '',
+        city: '',
+        barangay: '',
+        street: '',
+        province: '',
+        zone: '',
+        phoneNumber: '',
+        gradeLevel: '',
+        section: '',
+        adviser: '',
+    })
 
 // onMounted(() =>{
 //     studentData.name.value = student.name
@@ -114,11 +126,11 @@ const image = ref(null)
                             <div class="left">
                                 <div class="input-wrap">
                                     <label for="name">Name of the Student</label><br>
-                                    <input type="text">
+                                    <input type="text" v-model="studentData.name">
                                 </div>
                                 <div class="input-wrap">
                                     <label for="token">Mobile Token</label><br>
-                                    <input type="text">
+                                    <input type="text" v-model="studentData.phoneNumber">
                                 </div>
                                 <div class="input-wrap selection">
                                     <label for="gender">Gender</label><br>

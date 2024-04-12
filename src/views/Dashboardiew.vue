@@ -7,17 +7,18 @@ const buttons = [
     {
         name: 'Dashboard',
         link: 'home',
-        icon: 'fa-brands fa-microsoft'
+        icon: 'fa-brands fa-microsoft',
+        class: 'dash-active'
     },
     {
         name: 'Students Information',
         link: 'students',
-        icon: 'fa-solid fa-user-graduate'
+        icon: 'fa-solid fa-user-graduate',
     },
     {
         name: 'Teachers Information',
         link: 'advisers',
-        icon: 'fa-solid fa-chalkboard-user'
+        icon: 'fa-solid fa-chalkboard-user',
     },
     {
         name: 'Parents Accounts',
@@ -65,12 +66,12 @@ function toggleNotif(){
         </div>
         <div class="main">
             <div class="sidebar">
-                <div class="buttons">
-                    <router-link  v-for="(button, index) in buttons" :to="button.link" @click="click(index)" :key="index" class="btn" :id="(index == key)? active : ''">
+                <nav class="buttons">
+                    <router-link  v-for="(button, index) in buttons" :to="button.link"  :key="index" class="btn">
                         <i :class="button.icon"></i>
                         {{ button.name }}
                     </router-link>
-                </div>
+                </nav>
                 <div class="action">
                     <i class="fa-solid fa-hand-sparkles"></i>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, culpa?</p>
@@ -97,7 +98,7 @@ function toggleNotif(){
     </div>
 </template>
 <style scoped>
-    #active{
+    nav a.router-link-exact-active {
         background: #3da1ff;;
         color: white;
     }

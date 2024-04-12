@@ -1,6 +1,6 @@
 <script setup>
 import {defineComponent} from 'vue'
-
+const emits = defineEmits('edit')
 defineComponent({
     name: 'StudentInfo'
 })
@@ -63,9 +63,12 @@ defineProps({
             </div>
         </div>
         <div class="action">
-            <i class="fa-regular fa-pen-to-square" style="color: var(--primary-color)"></i>
-            <i @click="toggle(isAdd.value)" class="fa-solid fa-triangle-exclamation" style="color:orange"></i>
-            <i @click="DeleteStudents(studentData.id)" class="fa-solid fa-trash" style="color:red"></i>
+            <i @click.prevent="emits('edit', true, studentData.id)"  class="fa-regular fa-pen-to-square" style="color: var(--primary-color)"></i>
+            <i class="fa-solid fa-triangle-exclamation" style="color:orange"></i>
+            <i @click="emits('delete', studentData.id)" class="fa-solid fa-trash" style="color:red"></i>
+        </div>
+        <div class="btn-download">
+            <button @click="emits('print', studentData.id)">Print Qr</button>
         </div>
     </div>
 </template>
@@ -129,6 +132,21 @@ defineProps({
 }
 
 .action i{
+    cursor: pointer;
+}
+
+.btn-download{
+    display: flex;
+    justify-content: right;
+    padding:10px 20px;
+}
+
+.btn-download button{
+    padding: 5px 10px;
+    border:none;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 5px;
     cursor: pointer;
 }
 </style>

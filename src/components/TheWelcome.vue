@@ -3,19 +3,19 @@
 </script>
 <template>
   <div class="container">
+    <div class="wrapper">
+      <div class="left">
     <div class="head">
       <div class="school-wrap">
         <img src="./images/RMES-logo.png" width="70px" alt="">
         <div>
           <h3>Ramon Magsaysay Elementary School</h3>
-          <p>san carlos City</p>
+          <h5>san carlos City</h5>
         </div>
       </div>
     </div>
-    <div class="wrapper">
-      <div class="left">
         <div class="the-welcome">
-          <h1>WELCOME</h1>
+          <h1>STUDENTS MONITORING SYSTEM</h1>
           <div class="btn">
             <a href="/admin" class="a1">Admin</a>
             <a href="/admn" class="a2">Lorem ipsum</a>
@@ -27,15 +27,16 @@
         </div>
       </div>
       <div class="right">
-        <img src="./images/border.png" alt="">
+
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
 .container{
-  background: #126cc0;
+  background: url(./images/children.jpg);
 }
 
 .head{
@@ -43,43 +44,60 @@
   justify-content: space-between;
   color: white;
 }
-
-.wrapper{
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  color: white;
-}
-
-h1{
-  color: white;
-  font-weight: 100;
-  font-size: 50px;
-}
-
-.the-welcome{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 50vh;
-}
-
 .school-wrap{
   display: flex;
-  gap: 10px;
-  align-items: center;
-  background: #16161642;
-  padding-right: 60px;
-  margin-top: 10px;
+  background: var(--primary-color);
+  gap: 5px;
+  width: 100vh;
+  padding: 0;
+  box-shadow:inset 0px 1px 5px #ffffff
 }
 
 .school-wrap img{
   padding-left: 50px;
   background: white;
   border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px
+  border-bottom-right-radius: 100px;
+  box-shadow:inset 0px 1px 5px #111111
 }
+
+.school-wrap h3{
+  padding-top: 10px;
+}
+
+.school-wrap h5{
+  text-align: center;
+}
+
+.wrapper{
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left{
+  padding-bottom:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h1{
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.the-welcome{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  gap: 5rem;
+}
+
+
 .btn{
   display: flex;
   gap: 30px;
@@ -92,29 +110,20 @@ h1{
   color: white;
   text-decoration: none;
   border-radius: 5px;
+  font-size: 20px;
+  box-shadow: 1px 1px 5px #242424;
 }
 
 .btn .a2{
   background: #2f8fe9;
 }
 
-.left{
-  padding: 50px 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
 
 .right{
-  height: 86.4vh;
-  background: white;
+  height: 100vh;
+  background: rgb(255, 255, 255);
   width: 50%;
   border-top-left-radius: 100%;
-}
-
-.right img{
-  padding: 30px 0 0 50px;
-  width: 30rem;
 }
 
 .contact{
@@ -123,6 +132,7 @@ h1{
 
 .contact h4, p{
   font-weight: 100;
+  font-size: 20px;
 }
 
 .contact p{
