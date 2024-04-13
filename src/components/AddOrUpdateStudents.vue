@@ -87,13 +87,23 @@ const fileInput = ref(null);
 const selectedFile = ref(null);
 const image = ref(null)
 
-  const handleFileChange = () => {
-    if (fileInput.value.files.length > 0) {
-      selectedFile.value = fileInput.value.files[0];
-      image.value = URL.createObjectURL(selectedFile.value);
-    }
-  };
+function onFileChange(e) {
+              const file = e.target.files[0];
+              if (!file) {
+                return;
+              }
+              const reader = new FileReader();
+          
+              reader.onload = (e) => {
+                image.value = e.target.result;
+              };
+          
+              reader.readAsDataURL(file);
+            }
 
+function edit(key){
+    step.value = key
+}
 
 </script>
 <template>
@@ -113,8 +123,8 @@ const image = ref(null)
                     <i :class="step >= 4 ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle-check'"></i>
                     <p>Upload Documents</p>
                 </div>
-                <div class="step-wrap">
-                    <i class="fa-regular fa-circle-check"></i>
+                <div class="step-wrap" :class=" step >= 4 ? 'mark-done' : ''">
+                    <i :class="step >= 5 ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle-check'"></i>
                     <p>Previe Form</p>
                 </div>
             </div>
@@ -188,7 +198,7 @@ const image = ref(null)
                             <div class="left">
                                 <div class="input-wrap">
                                     <label for="lrn">LRN</label><br>
-                                    <input type="text">
+                                    <input type="number">
                                 </div>
                                 <div class="input-wrap">
                                     <label for="grdlvl">grade Level</label><br>
@@ -219,15 +229,63 @@ const image = ref(null)
                             <label for="image">
                                 <div v-if="!image">
                                     <i class="fa-solid fa-cloud-arrow-up"></i>
-                                    <p>upload profile</p>
+                                    <p>upload your profile</p>
                                 </div>
-                                <img :src="image" alt="" v-else>
+                                <img class="img" :src="image" alt="" v-else>
                             </label>
-                            <input type="file" @change="handleFileChange"  name="" id="image" style="display:none">
+                            <input type="file" @change="onFileChange"  name="" id="image" style="display:none">
                         </div>
                         <div class="btn">
                             <a href="" @click.prevent="step--">Back</a>
                             <a href="" class="button" @click.prevent="step++">Proceed</a>
+                        </div>
+                    </div>
+                    <div class="step-4 form" :style="step == 4? 'display: block' : 'display: none'">
+                        <p>4. Preview form</p>
+                        <div class="form-info">
+                            <div class="profile-wrap">
+                                <div class="profile">
+                                    <img :src="image" width="60px" height="60px" alt="">
+                                    <div class="profile-name">
+                                        <h4>Roland Clarion</h4>
+                                        <p>Grade III</p>
+                                    </div>
+                                </div>
+                                <i class="fa-regular fa-pen-to-square" @click="edit(3)"></i>
+                            </div>
+                            <div class="add-info">
+                                <div class="action-info">
+                                    <h4>Educational Details</h4>
+                                    <i class="fa-regular fa-pen-to-square" @click="edit(2)"></i>
+                                </div>
+                                <div class="info-wrap">
+                                    <div class="info-left">
+                                        <h5>LRN: </h5>
+                                        <h5>Adviser: </h5>
+                                    </div>
+                                    <div class="info-right">
+                                        <h5>Grade: </h5>
+                                        <h5>Section: </h5>
+                                    </div>
+                                </div>
+                                <div class="action-info">
+                                    <h4>Personal Details</h4>
+                                    <i class="fa-regular fa-pen-to-square" @click="edit(1)"></i>
+                                </div>
+                                <div class="info-wrap">
+                                    <div class="info-left">
+                                        <h5>LRN: </h5>
+                                        <h5>Adviser: </h5>
+                                    </div>
+                                    <div class="info-right">
+                                        <h5>Grade: </h5>
+                                        <h5>Section: </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn">
+                            <button class="button">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -304,8 +362,8 @@ const image = ref(null)
         justify-content: space-between;
     }
     .form-wrap input, select{
-        padding: 10px 10px;
-        border: none;
+        padding: 8px 10px;
+        border: 1px solid #e5e7e7;
         background: #e5e7e7;
         width: 15rem;
         border-radius: 3px;
@@ -378,12 +436,60 @@ const image = ref(null)
         font-size: 50px;
         padding: 50px;
         border-radius: 50%;
-        border: dotted rgb(192, 185, 185);
+        border: dotted #c0b9b9;
     }
 
-    .step-3 img{
-        width: 40vh;
+    .step-3 .img{
         height: 40vh;
     }
 
+    .step-4 img{
+        border-radius: 100%;
+    }
+
+    .form-info{
+        padding: 10px 20px;
+    }
+
+    .profile-wrap{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .step-4 .profile p{
+        padding: 0;
+        color: #676868;
+        font-size: 13px;
+        border: none;
+    }
+
+    .add-info{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 0;
+    }
+
+    .action-info{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info-wrap{
+        display: flex;
+        gap: 10rem;
+    }
+
+    .add-info h5{
+        font-family: 100;
+        color: #414040;
+    }
+
+    .step-4 i{
+        cursor:pointer;
+    }
+
+    .step-4 i:hover{
+        color: var(--primary-color)
+    }
 </style>

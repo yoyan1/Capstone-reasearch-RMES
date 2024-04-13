@@ -24,7 +24,7 @@ const recievedFilteredStudents = computed(() => {
                         <th>Zone</th>
                     </tr>
                     <tr v-for="(student, index) in recievedFilteredStudents" :key="student.id" @click="emits('show', index)" class="list" :id="(activeKey == index) ? active : ''">
-                        <td><img src="../components/images/avatar.avif" width="40px" alt=""></td>
+                        <td><img src="./images/avatar.avif" width="40px" alt=""></td>
                         <td>
                             <h4>{{ student.name }}</h4>
                             <p>Grade {{ student.gradeLevel }}</p>

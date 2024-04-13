@@ -5,11 +5,13 @@ import addOrUpdate from '../components/AddOrUpdateStudents.vue'
 import StudentsList from '../components/StudentsList.vue'
 import StudentInfo from '../components/StudentInfo.vue'
 import printQr from '../components/printQr.vue'
+import Report from '../components/Report.vue'
 
 const gradeLevels = ref(['','I', 'II', 'III', 'IV', 'V', 'VI'])
 const students = ref([
     {
         id: '6322721',
+        image: '../components/images/avatar.avif',
         LRN: '374287346',
         name: 'Roland Clarion',
         gender: 'male',
@@ -33,6 +35,7 @@ const students = ref([
     },
     {
         id: '6322822',
+        image: './images/avatar.avif',
         LRN: '374287346',
         name: 'Roland Clarion',
         gender: 'male',
@@ -76,6 +79,10 @@ function show(id){
 function print(id){
     isPrint.value = !isPrint.value
     QrID.value = id
+}
+const isReport = ref(false)
+function toggleReport(id){
+    isReport.value = !isReport.value
 }
 
 const searchInput = ref('')
@@ -123,6 +130,7 @@ function DeleteStudent(id) {
 <template>
     <add-or-update v-if="!isToggle" @close="toggleComponent" :gradeLevels="gradeLevels" :isAdd="isAdd" class="add-students"></add-or-update>
     <printQr class="print-qr" v-if="isPrint" @close="print" :id="QrID"></printQr>
+    <Report class="report" v-if="isReport" @close="toggleReport"></Report>
     <div class="container">
         <div class="students-list">
             <div class="top">
@@ -142,7 +150,7 @@ function DeleteStudent(id) {
             
         </div>
         <div class="side">
-            <student-info :studentData="students[key]" @edit="toggleComponent" @print="print" @delete="DeleteStudent"></student-info>
+            <student-info :studentData="students[key]" @edit="toggleComponent" @print="print" @delete="DeleteStudent" @report="toggleReport"></student-info>
         </div>
         <div class="log">
             <h5>Logs</h5><br>
@@ -154,13 +162,10 @@ function DeleteStudent(id) {
     </div>
 </template>
 <style scoped>
-.add-students{
+.add-students, .print-qr, .report{
     z-index: 100;
 }
 
-.print-qr{
-    z-index: 100;
-}
 .container{
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;

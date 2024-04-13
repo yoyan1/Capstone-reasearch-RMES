@@ -64,7 +64,7 @@ defineProps({
         </div>
         <div class="action">
             <i @click.prevent="emits('edit', true, studentData.id)"  class="fa-regular fa-pen-to-square" style="color: var(--primary-color)"></i>
-            <i class="fa-solid fa-triangle-exclamation" style="color:orange"></i>
+            <i @click="emits('report', studentData.id)" class="fa-solid fa-triangle-exclamation" style="color:orange"></i>
             <i @click="emits('delete', studentData.id)" class="fa-solid fa-trash" style="color:red"></i>
         </div>
         <div class="btn-download">
